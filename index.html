@@ -21,34 +21,35 @@
             --accent-bg: #F0F9FF;
             --radius: 16px;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg); color: var(--text);
+            line-height: 1.7; -webkit-font-smoothing: antialiased;
         }
+
+        /* Lang Switcher */
+        .lang-switch {
+            position: absolute; top: 20px; right: 20px; z-index: 10;
+            display: flex; gap: 8px; background: rgba(255,255,255,0.1);
+            padding: 4px; border-radius: 20px; backdrop-filter: blur(4px);
+        }
+        .lang-btn {
+            background: transparent; border: none; color: white;
+            padding: 6px 12px; border-radius: 16px; font-size: 14px;
+            font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .lang-btn.active { background: white; color: var(--primary); }
+
         /* Header */
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 60px 24px 48px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            color: white; padding: 60px 24px 48px; text-align: center;
+            position: relative; overflow: hidden;
         }
         .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
             animation: pulse 8s ease-in-out infinite;
         }
@@ -56,406 +57,284 @@
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 1; }
         }
-        .header-content {
-            position: relative;
-            z-index: 1;
-            max-width: 680px;
-            margin: 0 auto;
-        }
-        .header .icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            display: block;
-        }
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-        .header .app-name {
-            font-size: 15px;
-            font-weight: 500;
-            opacity: 0.85;
-        }
+        .header-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+        .header .icon { font-size: 48px; margin-bottom: 16px; display: block; }
+        .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .header .app-name { font-size: 15px; font-weight: 500; opacity: 0.85; }
         .header .updated {
-            font-size: 13px;
-            opacity: 0.7;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            display: inline-block;
+            font-size: 13px; opacity: 0.7; margin-top: 16px; padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.2); display: inline-block;
         }
+
         /* Main */
-        .main {
-            max-width: 720px;
-            margin: -24px auto 60px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-        /* Table of Contents */
+        .main { max-width: 720px; margin: -24px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
+
+        /* TOC */
         .toc {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            margin-bottom: 24px;
-            border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            background: var(--surface); border-radius: var(--radius); padding: 28px 32px;
+            margin-bottom: 24px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
-        .toc h2 {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-        .toc ol {
-            list-style: none;
-            counter-reset: toc-counter;
-        }
-        .toc ol li {
-            counter-increment: toc-counter;
-            margin-bottom: 8px;
-        }
+        .toc h2 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px; }
+        .toc ol { list-style: none; counter-reset: toc-counter; }
+        .toc ol li { counter-increment: toc-counter; margin-bottom: 8px; }
         .toc ol li a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: color 0.2s;
+            color: var(--primary); text-decoration: none; font-size: 15px; font-weight: 500;
+            display: flex; align-items: center; gap: 10px; transition: color 0.2s;
         }
         .toc ol li a::before {
-            content: counter(toc-counter) ".";
-            color: var(--text-muted);
-            font-size: 13px;
-            font-weight: 600;
-            min-width: 22px;
+            content: counter(toc-counter) "."; color: var(--text-muted); font-size: 13px; font-weight: 600; min-width: 22px;
         }
-        .toc ol li a:hover {
-            color: var(--primary-dark);
-        }
+
         /* Sections */
         .section {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 32px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            transition: box-shadow 0.3s;
+            background: var(--surface); border-radius: var(--radius); padding: 32px; margin-bottom: 16px;
+            border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: box-shadow 0.3s;
         }
-        .section:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        }
-        .section h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: -0.3px;
-        }
-        .section h2 .emoji {
-            font-size: 22px;
-        }
-        .section h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 20px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-        .section p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-        .section ul, .section ol {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-        .section li {
-            font-size: 15px;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-        .section li strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-        /* Highlight box */
+        .section:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+        .section h3 { font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 8px; color: var(--text); }
+        .section p, .section li { font-size: 15px; color: var(--text-secondary); margin-bottom: 12px; }
+        .section ul, .section ol { padding-left: 20px; margin-bottom: 12px; }
+        .section li { margin-bottom: 6px; }
+        .section li strong { color: var(--text); font-weight: 600; }
+        
         .highlight {
-            background: var(--accent-bg);
-            border-left: 4px solid var(--primary);
-            border-radius: 0 12px 12px 0;
-            padding: 16px 20px;
-            margin: 16px 0;
+            background: var(--accent-bg); border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 16px 0;
         }
-        .highlight p {
-            margin-bottom: 0;
-            font-size: 14px;
-        }
-        /* Data table */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 14px;
-        }
-        .data-table th, .data-table td {
-            text-align: left;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        .data-table th {
-            background: var(--bg);
-            font-weight: 600;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-        }
-        .data-table td {
-            color: var(--text-secondary);
-        }
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-        .badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .badge-green {
-            background: #DCFCE7;
-            color: #166534;
-        }
-        .badge-yellow {
-            background: #FEF9C3;
-            color: #854D0E;
-        }
-        .badge-blue {
-            background: #DBEAFE;
-            color: #1E40AF;
-        }
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 40px 24px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        .footer .divider {
-            width: 40px;
-            height: 3px;
-            background: var(--border);
-            border-radius: 2px;
-            margin: 0 auto 16px;
-        }
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header { padding: 48px 20px 36px; }
-            .header h1 { font-size: 24px; }
-            .section { padding: 24px 20px; }
-            .toc { padding: 20px 24px; }
-            .data-table th, .data-table td { padding: 10px 12px; font-size: 13px; }
-        }
+        .highlight p { margin-bottom: 0; font-size: 14px; }
+
+        /* Table */
+        .data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        .data-table th, .data-table td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+        .data-table th { font-weight: 600; font-size: 13px; text-transform: uppercase; color: var(--text-muted); }
+        .data-table td { color: var(--text-secondary); }
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-green { background: #DCFCE7; color: #166534; }
+        .badge-yellow { background: #FEF9C3; color: #854D0E; }
+        .badge-blue { background: #DBEAFE; color: #1E40AF; }
+
+        .footer { text-align: center; padding: 40px 24px; color: var(--text-muted); font-size: 13px; }
+        .footer a { color: var(--primary); text-decoration: none; }
+        
+        /* Language Toggle Display */
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
     </style>
 </head>
 <body>
+
     <header class="header">
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" onclick="setLang('en')">EN</button>
+        </div>
         <div class="header-content">
             <span class="icon">⛽</span>
-            <h1>Política de Privacidade</h1>
+            <h1 id="page-title">Política de Privacidade</h1>
             <p class="app-name">Combustíveis Madeira</p>
-            <p class="updated">Última atualização: 30 de junho de 2026</p>
+            <p class="updated" id="page-date">Última atualização: 30 de junho de 2026</p>
         </div>
     </header>
+
     <main class="main">
-        <!-- Table of Contents -->
-        <nav class="toc">
-            <h2>Índice</h2>
-            <ol>
-                <li><a href="#intro">Introdução</a></li>
-                <li><a href="#dados">Dados Recolhidos</a></li>
-                <li><a href="#utilizacao">Como Utilizamos os Dados</a></li>
-                <li><a href="#terceiros">Serviços de Terceiros</a></li>
-                <li><a href="#armazenamento">Armazenamento e Segurança</a></li>
-                <li><a href="#publicidade">Publicidade</a></li>
-                <li><a href="#compras">Compras In-App</a></li>
-                <li><a href="#direitos">Os Seus Direitos</a></li>
-                <li><a href="#menores">Menores de Idade</a></li>
-                <li><a href="#alteracoes">Alterações a Esta Política</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ol>
-        </nav>
-        <!-- 1. Introdução -->
-        <section class="section" id="intro">
-            <h2><span class="emoji">👋</span> 1. Introdução</h2>
-            <p>A aplicação <strong>Combustíveis Madeira</strong> ("nós", "nosso" ou "App") é desenvolvida e mantida por um programador independente. Esta política de privacidade explica de forma transparente como os seus dados pessoais são recolhidos, utilizados e protegidos quando utiliza a nossa aplicação móvel.</p>
-            <p>Ao utilizar a App, concorda com as práticas descritas nesta política. Se não concordar, pedimos que não utilize a aplicação.</p>
-        </section>
-        <!-- 2. Dados Recolhidos -->
-        <section class="section" id="dados">
-            <h2><span class="emoji">📋</span> 2. Dados Recolhidos</h2>
-            <p>A tabela seguinte resume os dados que a App pode recolher:</p>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Dado</th>
-                        <th>Tipo</th>
-                        <th>Obrigatório</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Identificador do dispositivo</strong> (UUID gerado pela App)</td>
-                        <td><span class="badge badge-blue">Automático</span></td>
-                        <td>Sim</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Conta Google</strong> (nome, email, foto de perfil)</td>
-                        <td><span class="badge badge-green">Voluntário</span></td>
-                        <td>Não</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Token de notificações push</strong></td>
-                        <td><span class="badge badge-blue">Automático</span></td>
-                        <td>Apenas se autorizar</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Localização aproximada</strong></td>
-                        <td><span class="badge badge-yellow">Com permissão</span></td>
-                        <td>Apenas para o mapa</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Preferências da App</strong> (idioma, tamanho do depósito, estilo de notificação)</td>
-                        <td><span class="badge badge-blue">Automático</span></td>
-                        <td>Sim</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dados de compra</strong> (processados pelo Google Play)</td>
-                        <td><span class="badge badge-green">Voluntário</span></td>
-                        <td>Apenas para compras</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="highlight">
-                <p>🔒 <strong>Não recolhemos</strong> palavras-passe, dados bancários, contactos, fotos, ficheiros, histórico de navegação, ou qualquer outro dado pessoal sensível.</p>
-            </div>
-        </section>
-        <!-- 3. Utilização dos Dados -->
-        <section class="section" id="utilizacao">
-            <h2><span class="emoji">⚙️</span> 3. Como Utilizamos os Dados</h2>
-            <p>Os dados recolhidos são utilizados exclusivamente para:</p>
-            <ul>
-                <li><strong>Funcionamento da App:</strong> Identificar o seu dispositivo para gerir preferências e o estado da subscrição Premium.</li>
-                <li><strong>Autenticação:</strong> Permitir o login com a sua conta Google para sincronizar a subscrição Premium entre dispositivos.</li>
-                <li><strong>Notificações push:</strong> Enviar alertas sobre atualizações de preços de combustíveis na Madeira, caso tenha autorizado.</li>
-                <li><strong>Mapa:</strong> Mostrar a sua localização no mapa de bombas de combustível (apenas quando concede permissão e a App está em uso).</li>
-                <li><strong>Melhoria do serviço:</strong> Compreender padrões de utilização anónimos para melhorar a experiência.</li>
-            </ul>
-            <div class="highlight">
-                <p>📌 <strong>Nunca vendemos, alugamos ou partilhamos os seus dados pessoais com terceiros para fins de marketing.</strong></p>
-            </div>
-        </section>
-        <!-- 4. Serviços de Terceiros -->
-        <section class="section" id="terceiros">
-            <h2><span class="emoji">🔗</span> 4. Serviços de Terceiros</h2>
-            <p>A App utiliza os seguintes serviços de terceiros, cada um com a sua própria política de privacidade:</p>
-            <h3>Supabase (Base de dados e Autenticação)</h3>
-            <p>Utilizado para armazenar dados da App (preços, estações, dispositivos) e gerir a autenticação com Google. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Política de Privacidade do Supabase</a>.</p>
-            <h3>Google Sign-In</h3>
-            <p>Utilizado para autenticação opcional. Acedemos apenas ao nome, email e foto de perfil da sua conta Google. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidade da Google</a>.</p>
-            <h3>Google AdMob (Publicidade)</h3>
-            <p>Utilizado para exibir anúncios na versão gratuita da App. A AdMob pode recolher identificadores de publicidade e dados de utilização. <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Política de Publicidade da Google</a>.</p>
-            <h3>RevenueCat (Compras In-App)</h3>
-            <p>Utilizado para gerir subscrições e compras dentro da App. <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">Política de Privacidade do RevenueCat</a>.</p>
-            <h3>Expo (Notificações Push)</h3>
-            <p>Utilizado para enviar notificações push. <a href="https://expo.dev/privacy" target="_blank" rel="noopener">Política de Privacidade da Expo</a>.</p>
-            <h3>Google Maps (Mapas)</h3>
-            <p>Utilizado para exibir o mapa de bombas de combustível. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidade da Google</a>.</p>
-        </section>
-        <!-- 5. Armazenamento e Segurança -->
-        <section class="section" id="armazenamento">
-            <h2><span class="emoji">🛡️</span> 5. Armazenamento e Segurança</h2>
-            <p>Os dados são armazenados de forma segura nos servidores da <strong>Supabase</strong>, alojados na União Europeia, com encriptação em trânsito (TLS/SSL) e em repouso.</p>
-            <p>As preferências locais (como idioma e tamanho do depósito) são guardadas exclusivamente no seu dispositivo através do AsyncStorage e nunca são transmitidas para servidores externos.</p>
-            <p>Tomamos medidas razoáveis para proteger os seus dados, incluindo:</p>
-            <ul>
-                <li>Comunicação encriptada via HTTPS em todas as ligações</li>
-                <li>Políticas de segurança ao nível da base de dados (Row Level Security)</li>
-                <li>Acesso restrito ao painel de administração</li>
-            </ul>
-        </section>
-        <!-- 6. Publicidade -->
-        <section class="section" id="publicidade">
-            <h2><span class="emoji">📢</span> 6. Publicidade</h2>
-            <p>A versão gratuita da App exibe anúncios fornecidos pelo <strong>Google AdMob</strong>. Estes anúncios podem ser personalizados com base nos seus interesses, de acordo com as definições da sua conta Google.</p>
-            <p>Os utilizadores com subscrição <strong>Premium</strong> não veem qualquer publicidade.</p>
-            <p>Pode gerir as suas preferências de anúncios personalizados nas <a href="https://adssettings.google.com" target="_blank" rel="noopener">Definições de Anúncios da Google</a>.</p>
-        </section>
-        <!-- 7. Compras In-App -->
-        <section class="section" id="compras">
-            <h2><span class="emoji">💳</span> 7. Compras In-App</h2>
-            <p>A App oferece subscrições Premium e gorjetas opcionais ("Tip Jar"). Todos os pagamentos são processados exclusivamente através do <strong>Google Play</strong>.</p>
-            <p><strong>Nós não temos acesso</strong> aos seus dados de pagamento (cartão de crédito, dados bancários, etc.). Estes são geridos inteiramente pela Google.</p>
-            <p>Para gerir ou cancelar as suas subscrições, aceda às <a href="https://play.google.com/store/account/subscriptions" target="_blank" rel="noopener">Subscrições do Google Play</a>.</p>
-        </section>
-        <!-- 8. Direitos -->
-        <section class="section" id="direitos">
-            <h2><span class="emoji">✅</span> 8. Os Seus Direitos</h2>
-            <p>De acordo com o Regulamento Geral de Proteção de Dados (RGPD) da União Europeia, tem os seguintes direitos:</p>
-            <ul>
-                <li><strong>Direito de acesso:</strong> Pode solicitar uma cópia dos dados que temos sobre si.</li>
-                <li><strong>Direito de retificação:</strong> Pode pedir a correção de dados incorretos.</li>
-                <li><strong>Direito ao apagamento:</strong> Pode solicitar a eliminação dos seus dados pessoais.</li>
-                <li><strong>Direito à portabilidade:</strong> Pode pedir os seus dados num formato estruturado.</li>
-                <li><strong>Direito de oposição:</strong> Pode opor-se ao tratamento dos seus dados para fins específicos.</li>
-            </ul>
-            <p>Para exercer qualquer um destes direitos, contacte-nos através do email indicado na secção de Contacto abaixo.</p>
-            <div class="highlight">
-                <p>Para eliminar a sua conta e todos os dados associados, pode fazê-lo diretamente na App em <strong>Definições → Perfil → Eliminar Conta</strong>, ou contactando-nos por email.</p>
-            </div>
-        </section>
-        <!-- 9. Menores -->
-        <section class="section" id="menores">
-            <h2><span class="emoji">👶</span> 9. Menores de Idade</h2>
-            <p>A App não se destina a menores de 13 anos e não recolhemos intencionalmente dados de crianças. Se tomarmos conhecimento de que recolhemos dados pessoais de uma criança menor de 13 anos sem consentimento parental verificável, tomaremos medidas para eliminar esses dados.</p>
-        </section>
-        <!-- 10. Alterações -->
-        <section class="section" id="alteracoes">
-            <h2><span class="emoji">📝</span> 10. Alterações a Esta Política</h2>
-            <p>Podemos atualizar esta política de privacidade periodicamente. Quaisquer alterações significativas serão comunicadas através de uma notificação na App ou através de uma atualização nesta página.</p>
-            <p>Recomendamos que reveja esta página regularmente. A data da última atualização encontra-se no topo desta página.</p>
-        </section>
-        <!-- 11. Contacto -->
-        <section class="section" id="contacto">
-            <h2><span class="emoji">📧</span> 11. Contacto</h2>
-            <p>Se tiver questões, preocupações ou pedidos relacionados com esta política de privacidade ou com os seus dados pessoais, pode contactar-nos através de:</p>
-            <ul>
-                <li><strong>Email:</strong> <a href="mailto:freitas.apps.09@gmail.com">freitas.apps.09@gmail.com</a></li>
-            </ul>
-            <p>Faremos o possível para responder ao seu pedido no prazo de 30 dias.</p>
-        </section>
+        <!-- PORTUGUESE CONTENT -->
+        <div id="content-pt" class="lang-content active">
+            <nav class="toc">
+                <h2>Índice</h2>
+                <ol>
+                    <li><a href="#intro-pt">Introdução</a></li>
+                    <li><a href="#dados-pt">Dados Recolhidos</a></li>
+                    <li><a href="#utilizacao-pt">Como Utilizamos os Dados</a></li>
+                    <li><a href="#terceiros-pt">Serviços de Terceiros</a></li>
+                    <li><a href="#armazenamento-pt">Armazenamento e Segurança</a></li>
+                    <li><a href="#publicidade-pt">Publicidade</a></li>
+                    <li><a href="#compras-pt">Compras In-App</a></li>
+                    <li><a href="#direitos-pt">Os Seus Direitos</a></li>
+                    <li><a href="#contacto-pt">Contacto</a></li>
+                </ol>
+            </nav>
+
+            <section class="section" id="intro-pt">
+                <h2><span class="emoji">👋</span> 1. Introdução</h2>
+                <p>A aplicação <strong>Combustíveis Madeira</strong> ("nós", "nosso" ou "App") é desenvolvida e mantida por um programador independente. Esta política explica como os seus dados pessoais são recolhidos, utilizados e protegidos.</p>
+                <p>Ao utilizar a App, concorda com as práticas descritas nesta política.</p>
+            </section>
+
+            <section class="section" id="dados-pt">
+                <h2><span class="emoji">📋</span> 2. Dados Recolhidos</h2>
+                <table class="data-table">
+                    <thead><tr><th>Dado</th><th>Tipo</th><th>Obrigatório</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>ID do dispositivo</strong> (UUID)</td><td><span class="badge badge-blue">Auto</span></td><td>Sim</td></tr>
+                        <tr><td><strong>Conta Google</strong> (nome, email, foto)</td><td><span class="badge badge-green">Opcional</span></td><td>Não</td></tr>
+                        <tr><td><strong>Token de notificações</strong></td><td><span class="badge badge-yellow">Permissão</span></td><td>Não</td></tr>
+                        <tr><td><strong>Localização</strong></td><td><span class="badge badge-yellow">Permissão</span></td><td>Não</td></tr>
+                        <tr><td><strong>Preferências</strong> (depósito, alertas)</td><td><span class="badge badge-blue">Auto</span></td><td>Sim</td></tr>
+                    </tbody>
+                </table>
+                <div class="highlight"><p>🔒 <strong>Não recolhemos</strong> senhas, dados bancários ou históricos de navegação.</p></div>
+            </section>
+
+            <section class="section" id="utilizacao-pt">
+                <h2><span class="emoji">⚙️</span> 3. Como Utilizamos os Dados</h2>
+                <ul>
+                    <li><strong>Funcionamento:</strong> Gerir preferências e subscrição Premium.</li>
+                    <li><strong>Autenticação:</strong> Sincronizar o Premium entre dispositivos.</li>
+                    <li><strong>Notificações:</strong> Enviar alertas de mudança de preços.</li>
+                    <li><strong>Mapa:</strong> Mostrar a sua localização (apenas com a app aberta).</li>
+                </ul>
+            </section>
+
+            <section class="section" id="terceiros-pt">
+                <h2><span class="emoji">🔗</span> 4. Serviços de Terceiros</h2>
+                <p>Utilizamos os seguintes parceiros (clique para ver as suas políticas):</p>
+                <ul>
+                    <li><strong>Supabase:</strong> Base de dados e Autenticação.</li>
+                    <li><strong>Google AdMob:</strong> Publicidade (apenas versão gratuita).</li>
+                    <li><strong>RevenueCat:</strong> Compras In-App.</li>
+                    <li><strong>Expo:</strong> Notificações Push.</li>
+                    <li><strong>Google Maps:</strong> Cartografia.</li>
+                </ul>
+            </section>
+
+            <section class="section" id="armazenamento-pt">
+                <h2><span class="emoji">🛡️</span> 5. Armazenamento e Segurança</h2>
+                <p>Os dados cloud são armazenados na Supabase (UE) com encriptação HTTPS/TLS. Preferências de UI são guardadas localmente no seu dispositivo e nunca partilhadas.</p>
+            </section>
+
+            <section class="section" id="publicidade-pt">
+                <h2><span class="emoji">📢</span> 6. Publicidade</h2>
+                <p>A versão gratuita exibe anúncios do Google AdMob. Utilizadores Premium não veem anúncios.</p>
+            </section>
+
+            <section class="section" id="compras-pt">
+                <h2><span class="emoji">💳</span> 7. Compras In-App</h2>
+                <p>Subscrições e gorjetas são processadas pelo Google Play. Nós não temos acesso ao seu cartão de crédito.</p>
+            </section>
+
+            <section class="section" id="direitos-pt">
+                <h2><span class="emoji">✅</span> 8. Os Seus Direitos (RGPD)</h2>
+                <p>Pode solicitar acesso, retificação, ou apagamento dos seus dados a qualquer momento.</p>
+                <div class="highlight"><p>Pode apagar a sua conta diretamente na App em <strong>Definições → Perfil → Eliminar Conta</strong>.</p></div>
+            </section>
+
+            <section class="section" id="contacto-pt">
+                <h2><span class="emoji">📧</span> 9. Contacto</h2>
+                <p>Dúvidas? Contacte-nos em: <a href="mailto:freitas.apps.09@gmail.com">freitas.apps.09@gmail.com</a></p>
+            </section>
+        </div>
+
+        <!-- ENGLISH CONTENT -->
+        <div id="content-en" class="lang-content">
+            <nav class="toc">
+                <h2>Table of Contents</h2>
+                <ol>
+                    <li><a href="#intro-en">Introduction</a></li>
+                    <li><a href="#dados-en">Data We Collect</a></li>
+                    <li><a href="#utilizacao-en">How We Use Your Data</a></li>
+                    <li><a href="#terceiros-en">Third-Party Services</a></li>
+                    <li><a href="#armazenamento-en">Storage & Security</a></li>
+                    <li><a href="#publicidade-en">Advertising</a></li>
+                    <li><a href="#compras-en">In-App Purchases</a></li>
+                    <li><a href="#direitos-en">Your Rights</a></li>
+                    <li><a href="#contacto-en">Contact</a></li>
+                </ol>
+            </nav>
+
+            <section class="section" id="intro-en">
+                <h2><span class="emoji">👋</span> 1. Introduction</h2>
+                <p>The <strong>Combustíveis Madeira</strong> app ("we", "us", or "App") is developed by an independent developer. This policy explains how your personal data is collected, used, and protected.</p>
+                <p>By using the App, you agree to the practices described in this policy.</p>
+            </section>
+
+            <section class="section" id="dados-en">
+                <h2><span class="emoji">📋</span> 2. Data We Collect</h2>
+                <table class="data-table">
+                    <thead><tr><th>Data</th><th>Type</th><th>Required</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Device ID</strong> (UUID)</td><td><span class="badge badge-blue">Auto</span></td><td>Yes</td></tr>
+                        <tr><td><strong>Google Account</strong> (name, email)</td><td><span class="badge badge-green">Optional</span></td><td>No</td></tr>
+                        <tr><td><strong>Push Token</strong></td><td><span class="badge badge-yellow">Permission</span></td><td>No</td></tr>
+                        <tr><td><strong>Location</strong></td><td><span class="badge badge-yellow">Permission</span></td><td>No</td></tr>
+                        <tr><td><strong>Preferences</strong> (tank size, etc)</td><td><span class="badge badge-blue">Auto</span></td><td>Yes</td></tr>
+                    </tbody>
+                </table>
+                <div class="highlight"><p>🔒 <strong>We do not collect</strong> passwords, bank details, or browsing history.</p></div>
+            </section>
+
+            <section class="section" id="utilizacao-en">
+                <h2><span class="emoji">⚙️</span> 3. How We Use Your Data</h2>
+                <ul>
+                    <li><strong>App Functionality:</strong> Manage preferences and Premium subscription state.</li>
+                    <li><strong>Authentication:</strong> Sync Premium across your devices.</li>
+                    <li><strong>Notifications:</strong> Send price update alerts.</li>
+                    <li><strong>Map:</strong> Show your location (only when the app is open).</li>
+                </ul>
+            </section>
+
+            <section class="section" id="terceiros-en">
+                <h2><span class="emoji">🔗</span> 4. Third-Party Services</h2>
+                <p>We use the following partners (click to view their privacy policies):</p>
+                <ul>
+                    <li><strong>Supabase:</strong> Database and Authentication.</li>
+                    <li><strong>Google AdMob:</strong> Advertising (free version only).</li>
+                    <li><strong>RevenueCat:</strong> In-App Purchases.</li>
+                    <li><strong>Expo:</strong> Push Notifications.</li>
+                    <li><strong>Google Maps:</strong> Mapping services.</li>
+                </ul>
+            </section>
+
+            <section class="section" id="armazenamento-en">
+                <h2><span class="emoji">🛡️</span> 5. Storage & Security</h2>
+                <p>Cloud data is securely stored on Supabase (EU) with HTTPS/TLS encryption. UI preferences are stored locally on your device and never shared.</p>
+            </section>
+
+            <section class="section" id="publicidade-en">
+                <h2><span class="emoji">📢</span> 6. Advertising</h2>
+                <p>The free version displays ads via Google AdMob. Premium users do not see ads.</p>
+            </section>
+
+            <section class="section" id="compras-en">
+                <h2><span class="emoji">💳</span> 7. In-App Purchases</h2>
+                <p>Subscriptions and tips are processed by Google Play. We do not have access to your credit card information.</p>
+            </section>
+
+            <section class="section" id="direitos-en">
+                <h2><span class="emoji">✅</span> 8. Your Rights (GDPR)</h2>
+                <p>You can request access to, rectification of, or erasure of your data at any time.</p>
+                <div class="highlight"><p>You can delete your account directly in the App at <strong>Settings → Profile → Delete Account</strong>.</p></div>
+            </section>
+
+            <section class="section" id="contacto-en">
+                <h2><span class="emoji">📧</span> 9. Contact</h2>
+                <p>Questions? Contact us at: <a href="mailto:freitas.apps.09@gmail.com">freitas.apps.09@gmail.com</a></p>
+            </section>
+        </div>
     </main>
+
     <footer class="footer">
-        <div class="divider"></div>
-        <p>© 2026 Combustíveis Madeira. Todos os direitos reservados.</p>
-        <p style="margin-top: 8px;">Desenvolvido com ❤️ na Ilha da Madeira</p>
+        <p>© 2026 Combustíveis Madeira. Todos os direitos reservados / All rights reserved.</p>
     </footer>
+
+    <script>
+        function setLang(lang) {
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('content-' + lang).classList.add('active');
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(lang === 'pt') {
+                document.getElementById('page-title').innerText = 'Política de Privacidade';
+                document.getElementById('page-date').innerText = 'Última atualização: 30 de junho de 2026';
+                document.title = 'Política de Privacidade — Combustíveis Madeira';
+            } else {
+                document.getElementById('page-title').innerText = 'Privacy Policy';
+                document.getElementById('page-date').innerText = 'Last updated: June 30, 2026';
+                document.title = 'Privacy Policy — Combustíveis Madeira';
+            }
+        }
+    </script>
 </body>
 </html>
